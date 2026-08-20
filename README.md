@@ -1,88 +1,52 @@
 # ROMEO-HYDRA QUANTIK
 
-**El verdadero agente de gobernanza offline fail-closed**
+**Punto de entrada público del agente de gobernanza offline fail-closed.**
 
-> Gate ex-ante (DFA) · Fail-closed allow/deny · Receipts criptográficos con lineage · Stdlib only · Sin cloud · Sin APIs externas.
-
-Este repositorio es el **punto de entrada oficial** del agente unificado ROMEO-HYDRA QUANTIK.
+> Gate ex-ante · Fail-closed allow/deny · Receipts + lineage · Core = Python 3.11 stdlib · Sin cloud · Sin APIs externas.
 
 ---
 
-## Qué es (versión para CEO)
+## Qué es
 
-ROMEO-HYDRA QUANTIK es un **control técnico de admisibilidad ex-ante** para decisiones algorítmicas en entornos regulados (banca, SOFOM, SOFIPO, fintech).
+QUANTIK es el **portal oficial** de evaluación del ecosistema ROMEO-HYDRA.
 
-- Decide **antes** de ejecutar si una acción es admisible.
-- Genera evidencia criptográfica inmutable (receipt + lineage) tanto de lo que se permite como de lo que se niega.
-- Funciona 100% offline. No depende de la nube ni de APIs externas.
-- Está diseñado para cumplir requisitos de trazabilidad y control (CNBV y temas equivalentes del EU AI Act).
+No afirma compliance automática ni certificación CNBV.  
+Afirma: *“esta decisión es (o no es) técnicamente admisible según las reglas definidas y deja evidencia criptográfica”*.
 
-**No afirma compliance automática.**  
-Afirma: *“esta decisión es (o no es) técnicamente admisible según las reglas definidas”*.
+## Componentes
 
----
+| Pieza | Dónde vive | Rol |
+|-------|------------|-----|
+| **Core (stdlib)** | `romeo-hydra-core` (privado) + extracto Genesis | Motor determinista fail-closed |
+| **Hub + Pilot + Ledger** | [`romeo-hydra-master-repository-hub`](https://github.com/robinmacv2-ui/romeo-hydra-master-repository-hub) | Orquestación, auditorías, DOI |
+| **Este repo (Quantik)** | Aquí | Entrada limpia + documentación de evaluación |
 
-## Componentes que se unifican aquí
-
-| Componente | Repositorio origen | Rol |
-|------------|--------------------|-----|
-| **Core** | `romeo-hydra-core` | Motor determinista offline (Python stdlib) |
-| **Hub + Pilot + Ledger** | `romeo-hydra-master-repository-hub` | Orquestación, stress tests, regulatory mapping |
-| **Frontend de Gobernanza** | `Romeo-BANKING` | Interfaz visual de auditoría y control |
-
----
-
-## Cómo correrlo (versión CEO – 2 minutos)
+## Cómo evaluar (2 minutos)
 
 ```bash
-# 1. Clonar el core (el corazón del agente)
-git clone https://github.com/robinmacv2-ui/romeo-hydra-core.git
-cd romeo-hydra-core
-
-# 2. Ejecutar el agente
-python3 -m romeo_agent
-
-# Comandos de ejemplo dentro del agente:
-help ::
-lineage ::
-echo :: hola desde QUANTIK
-hash :: secreto-de-prueba
+# Opción recomendada para jurado — hub público limpio
+git clone https://github.com/robinmacv2-ui/romeo-hydra-master-repository-hub.git
+cd romeo-hydra-master-repository-hub
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e .          # ZERO dependencias de terceros
+python main.py
 ```
 
-Para la interfaz visual completa (frontend):
-```bash
-git clone https://github.com/robinmacv2-ui/Romeo-BANKING.git
-cd Romeo-BANKING
-npm install   # o bun install
-npm run dev
-```
+Ver también: [`JURY_CHECKLIST.md`](https://github.com/robinmacv2-ui/romeo-hydra-master-repository-hub/blob/main/JURY_CHECKLIST.md)
 
----
+## Modelo
 
-## Modelo de negocio (cómo se cobra)
-
-- **Este repositorio (Quantik)** → Punto de entrada y demo gratuita / evaluación.
-- **Core + Frontend + escenarios CNBV** → Se cobra como **Demo profesional** o **Piloto**.
-- **Licencia comercial + implementación** → Se cobra a entidades reguladas.
-
-Las demás piezas (stress packs avanzados, personalizaciones, integraciones, soporte) se cobran aparte.
-
----
+- **Este repositorio** → entrada y demo de evaluación.
+- **Core + escenarios + frontend** → Demo profesional / Piloto (comercial).
+- **Licencia comercial** → obligatoria para producción en entidades reguladas.
 
 ## Licencia
 
-**Dual**  
-- GPL-3.0 → Investigación, evaluación y uso no comercial.  
-- Comercial → Obligatoria para producción en entidades financieras reguladas.
-
----
+Dual: AGPL-3.0 (evaluación / no comercial) · Comercial EMMOROR (producción regulada).
 
 ## Autor
 
 **Luis Angel Vazquez Martinez** (`robinmacv2-ui`)  
 Founder of HYDRA GOVERNANCE SYSTEMS · México  
+ORCID: 0009-0006-8163-3759  
 Contacto: robinmac.v2@gmail.com
-
----
-
-**Próximo paso recomendado**: Empaquetar una versión “one-command” (Docker o script único) para que un CEO pueda levantarlo sin fricción técnica.
