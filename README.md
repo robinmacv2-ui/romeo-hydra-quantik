@@ -1,52 +1,68 @@
 # ROMEO-HYDRA QUANTIK
 
-**Punto de entrada público del agente de gobernanza offline fail-closed.**
+**Public evaluation door** for the offline fail-closed governance agent.
 
-> Gate ex-ante · Fail-closed allow/deny · Receipts + lineage · Core = Python 3.11 stdlib · Sin cloud · Sin APIs externas.
+Gate ex-ante · Fail-closed allow/deny · Receipts + lineage · Core = Python 3.11 stdlib · No cloud · No external APIs.
+
+[![Offline](https://img.shields.io/badge/offline-100%25-green.svg)](#)
+[![Fail-closed](https://img.shields.io/badge/gate-FAIL--CLOSED-black.svg)](#)
+[![Stdlib](https://img.shields.io/badge/core-stdlib%20only-success.svg)](#)
 
 ---
 
-## Qué es
+## Jury path (2 minutes)
 
-QUANTIK es el **portal oficial** de evaluación del ecosistema ROMEO-HYDRA.
-
-No afirma compliance automática ni certificación CNBV.  
-Afirma: *“esta decisión es (o no es) técnicamente admisible según las reglas definidas y deja evidencia criptográfica”*.
-
-## Componentes
-
-| Pieza | Dónde vive | Rol |
-|-------|------------|-----|
-| **Core (stdlib)** | `romeo-hydra-core` (privado) + extracto Genesis | Motor determinista fail-closed |
-| **Hub + Pilot + Ledger** | [`romeo-hydra-master-repository-hub`](https://github.com/robinmacv2-ui/romeo-hydra-master-repository-hub) | Orquestación, auditorías, DOI |
-| **Este repo (Quantik)** | Aquí | Entrada limpia + documentación de evaluación |
-
-## Cómo evaluar (2 minutos)
+### Option A — Full product surface (recommended)
 
 ```bash
-# Opción recomendada para jurado — hub público limpio
-git clone https://github.com/robinmacv2-ui/romeo-hydra-master-repository-hub.git
+git clone --depth 1 https://github.com/robinmacv2-ui/romeo-hydra-master-repository-hub.git
 cd romeo-hydra-master-repository-hub
 python3 -m venv .venv && source .venv/bin/activate
-pip install -e .          # ZERO dependencias de terceros
+pip install -e .          # ZERO third-party packages for product surface
 python main.py
+python -m romeo_agent -c "status ::"
+python -m romeo_agent -c "help ::"
 ```
 
-Ver también: [`JURY_CHECKLIST.md`](https://github.com/robinmacv2-ui/romeo-hydra-master-repository-hub/blob/main/JURY_CHECKLIST.md)
+Checklist: [JURY_CHECKLIST.md](https://github.com/robinmacv2-ui/romeo-hydra-master-repository-hub/blob/main/JURY_CHECKLIST.md)
 
-## Modelo
+### Option B — Pure kernel only
 
-- **Este repositorio** → entrada y demo de evaluación.
-- **Core + escenarios + frontend** → Demo profesional / Piloto (comercial).
-- **Licencia comercial** → obligatoria para producción en entidades reguladas.
+```bash
+git clone --depth 1 https://github.com/robinmacv2-ui/hydra-genesis-zero.git
+cd hydra-genesis-zero
+python3 main.py
+```
 
-## Licencia
+### Option C — This repo (door only)
 
-Dual: AGPL-3.0 (evaluación / no comercial) · Comercial EMMOROR (producción regulada).
+```bash
+git clone --depth 1 https://github.com/robinmacv2-ui/romeo-hydra-quantik.git
+cd romeo-hydra-quantik
+python3 main.py
+```
 
-## Autor
+Prints the evaluation map. Does not run the full agent (by design).
 
-**Luis Angel Vazquez Martinez** (`robinmacv2-ui`)  
-Founder of HYDRA GOVERNANCE SYSTEMS · México  
-ORCID: 0009-0006-8163-3759  
-Contacto: robinmac.v2@gmail.com
+---
+
+## What QUANTIK is
+
+| Piece | Role |
+|-------|------|
+| This repo | Clean public door + jury routing |
+| [master-repository-hub](https://github.com/robinmacv2-ui/romeo-hydra-master-repository-hub) | Pilot, ledger, DOI, product surface |
+| [hydra-genesis-zero](https://github.com/robinmacv2-ui/hydra-genesis-zero) | Immutable stdlib kernel |
+
+**Claim:** a decision is (or is not) *technically admissible* under declared rules, with cryptographic evidence.  
+**Non-claim:** automatic legal nullity, CNBV certification, production banking.
+
+---
+
+## License
+
+Dual: AGPL-3.0 (evaluation / non-commercial) · Commercial EMMOROR (regulated production).
+
+**Author:** Luis Angel Vazquez Martinez (`robinmacv2-ui`)  
+**ORCID:** [0009-0006-8163-3759](https://orcid.org/0009-0006-8163-3759)  
+**Contact:** robinmac.v2@gmail.com
